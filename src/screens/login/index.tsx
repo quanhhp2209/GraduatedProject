@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableWithoutFeedba
 import { Input, Button, Icon } from 'react-native-ui-kitten';
 
 
-export default class Login extends React.Component {
+export default class Login extends React.Component<any> {
     state = {
         inputValue: '',
         secureTextEntry: true,
     };
 
-    onInputValueChange = (inputValue) => {
+    onChangeText = (inputValue) => {
         this.setState({ inputValue });
     };
     onIconPress = () => {
@@ -20,9 +20,14 @@ export default class Login extends React.Component {
     renderIcon = (style) => {
         const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
         return (
-            <Icon {...style} name={'eye-off'} />
+            <Icon {...style} name={iconName} />
         );
     };
+
+    goToDashboard = () => {
+        this.props.navigation.navigate('Dashboard')
+    }
+
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -33,23 +38,23 @@ export default class Login extends React.Component {
                         placeholder="Enter your username"
                         size='small'
                         style={styles.textInput}
-                        status='primary'
+                        status='danger'
                         value={this.state.inputValue}
-                        onChangeText={this.onInputValueChange}
+                        onChangeText={this.onChangeText}
                     />
 
                     <Input placeholder="Enter your password"
                         size='small'
                         style={styles.textInput}
-                        status='primary'
+                        status='danger'
                         value={this.state.inputValue}
-                        // icon={this.renderIcon}
+                        icon={this.renderIcon}
                         secureTextEntry={this.state.secureTextEntry}
                         onIconPress={this.onIconPress}
-                        onChangeText={this.onInputValueChange}
+                        onChangeText={this.onChangeText}
                     />
 
-                    <TouchableOpacity style={styles.loginButton}>
+                    <TouchableOpacity style={styles.loginButton} onPress={this.goToDashboard}>
                         <Text>LOGIN</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.resetButton}>
