@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableWithoutFeedba
 import { Input, Button, Icon } from 'react-native-ui-kitten';
 
 
-export default class Login extends React.Component {
+export default class Login extends React.Component<any> {
     state = {
         email: '',
         password: '',
@@ -26,9 +26,14 @@ export default class Login extends React.Component {
     renderIcon = (style) => {
         const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
         return (
-            <Icon {...style} name={'eye-off'} />
+            <Icon {...style} name={iconName} />
         );
     };
+
+    goToDashboard = () => {
+        this.props.navigation.navigate('Dashboard')
+    }
+
     render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -49,13 +54,13 @@ export default class Login extends React.Component {
                         style={styles.textInput}
                         status='primary'
                         value={this.state.password}
-                        // icon={this.renderIcon}
+                        icon={this.renderIcon}
                         secureTextEntry={this.state.secureTextEntry}
                         onIconPress={this.onIconPress}
                         onChangeText={this.onPasswordChange}
                     />
 
-                    <TouchableOpacity style={styles.loginButton}>
+                    <TouchableOpacity style={styles.loginButton} onPress={this.goToDashboard}>
                         <Text>LOGIN</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.resetButton}>
