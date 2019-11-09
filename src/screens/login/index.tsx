@@ -5,18 +5,24 @@ import { Input, Button, Icon } from 'react-native-ui-kitten';
 
 export default class Login extends React.Component {
     state = {
-        inputValue: '',
+        email: '',
+        password: '',
         secureTextEntry: true,
     };
 
-    onInputValueChange = (inputValue) => {
-        this.setState({ inputValue });
+    onEmailChange = (email) => {
+        this.setState({ email });
     };
+    
+    onPasswordChange = (password) => {
+        this.setState({ password });
+    };
+
     onIconPress = () => {
         const secureTextEntry = !this.state.secureTextEntry;
         this.setState({ secureTextEntry });
-    };
 
+    };
     renderIcon = (style) => {
         const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
         return (
@@ -34,26 +40,26 @@ export default class Login extends React.Component {
                         size='small'
                         style={styles.textInput}
                         status='primary'
-                        value={this.state.inputValue}
-                        onChangeText={this.onInputValueChange}
+                        value={this.state.email}
+                        onChangeText={this.onEmailChange}
                     />
 
                     <Input placeholder="Enter your password"
                         size='small'
                         style={styles.textInput}
                         status='primary'
-                        value={this.state.inputValue}
+                        value={this.state.password}
                         // icon={this.renderIcon}
                         secureTextEntry={this.state.secureTextEntry}
                         onIconPress={this.onIconPress}
-                        onChangeText={this.onInputValueChange}
+                        onChangeText={this.onPasswordChange}
                     />
 
                     <TouchableOpacity style={styles.loginButton}>
                         <Text>LOGIN</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.resetButton}>
-                        <Text>Forgot password?</Text>
+                        <Text style={styles.resetPasswordText}>Forgot password?</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -87,12 +93,14 @@ const styles = StyleSheet.create({
     },
 
     resetButton: {
-        width: 325,
-        height: 45,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgb(221, 97, 97)',
-        marginVertical: 4
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        width: '100%',
+        paddingRight: 8,
+        paddingTop: 4
+    },
+    resetPasswordText: {
+        // color: '#fff'
     },
     textInput: {
         borderRadius: 6,
