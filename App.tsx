@@ -21,8 +21,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const AuthStack = createStackNavigator({ Login: LoginScreen }, {headerMode: 'none'});
-const AppStack = createStackNavigator({ Dashboard: DashboardScreen });
+const AuthStack = createStackNavigator({ Login: LoginScreen }, { headerMode: 'none' });
+const AppStack = createStackNavigator({
+  Dashboard: DashboardScreen
+});
 
 const AppContainer = createAppContainer(
   createSwitchNavigator(
@@ -44,6 +46,8 @@ export default function App() {
 
   );
 }
+
+
 
 
 
