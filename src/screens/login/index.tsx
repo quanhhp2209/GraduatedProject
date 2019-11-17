@@ -94,17 +94,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgb(234, 195, 176)',
-        paddingHorizontal: 16,
-        alignItems: `center`,
-        justifyContent: `center`
+        flexDirection: 'column'
     },
     title: {
         fontSize: 33,
         fontWeight: `bold`,
         color: `rgb(221, 97, 97)`
     },
+    infoContainer: {
+        flex: 1,
+        backgroundColor: 'rgb(234, 195, 176)',
+        paddingHorizontal: 16,
+        alignItems: `center`,
+        justifyContent: `center`
+    },
     loginButton: {
-        width: 325,
+        width: 329,
         height: 45,
         borderRadius: 6,
         justifyContent: 'center',
@@ -117,14 +122,16 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
         width: '100%',
-        paddingRight: 8,
-        paddingTop: 4
+        paddingRight: 1,
+        paddingTop: 4,
+        marginVertical: 4
     },
     resetPasswordText: {
-        // color: '#fff'
+        color: 'rgb(221, 97, 97)'
     },
     textInput: {
         borderRadius: 6,
-        marginVertical: 4
+        marginVertical: 4,
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
     }
 });

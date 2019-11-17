@@ -8,6 +8,8 @@ import LoginScreen from './src/screens/login';
 import SettingScreen from './src/screens/setting';
 import NotificationScreen from './src/screens/notification';
 import KidDetailScreen from './src/screens/infodetail';
+import ParentProfileScreen from './src/screens/profile/parentInfo';
+import KidProfileScreen from './src/screens/profile/kidInfo';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import * as firebase from 'firebase';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -16,6 +18,7 @@ import { Provider, connect } from 'react-redux'
 import store from './src/store';
 import 'firebase/firestore'
 import { navigationService } from './src/services';
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUX3OmOPYGHshAT3p8_yhbTUNjDLSpZEQ",
@@ -30,20 +33,22 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const DashboardIcon = (style) => (
+
+const DashboardIcon = () => (
   <Icon name='layout' fill='rgb(221, 97, 97)' />
 );
 
-const KidDetailsIcon = (style) => (
+const KidDetailsIcon = () => (
   <Icon name='person-outline' fill='rgb(221, 97, 97)' />
 );
 
-const NotificationsIcon = (style) => (
+const NotificationsIcon = () => (
   <Icon name='bell-outline' fill='rgb(221, 97, 97)' />
 );
-const SettingsIcon = (style) => (
+const SettingsIcon = () => (
   <Icon name='settings' fill='rgb(221, 97, 97)' />
 );
+
 export const BottomNavigationShowcase = (props) => {
 
   const onTabSelect = (selectedIndex) => {
@@ -51,7 +56,6 @@ export const BottomNavigationShowcase = (props) => {
     props.navigation.navigate(selectedRoute.routeName);
     // console.log(props.navigation.state.routes)
   };
-
   return (
     <BottomNavigation
       style={styles.bottomNavigation}
@@ -72,6 +76,8 @@ const AppStack = createBottomTabNavigator({
   KidDetail: KidDetailScreen,
   Notification: NotificationScreen,
   Setting: SettingScreen,
+  ParentProfile: ParentProfileScreen,
+  KidProfile: KidProfileScreen
 }, {
   initialRouteName: 'Dashboard',
   tabBarComponent: BottomNavigationShowcase,
