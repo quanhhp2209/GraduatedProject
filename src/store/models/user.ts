@@ -37,6 +37,8 @@ export const userProfile = {
                 const userSnapshot = await firebase.firestore().collection('Users').doc(credential.user.uid).get();
                 this.setUserProfile(userSnapshot.data())
                 navigationService.navigate('Dashboard')
+
+                dispatch.activity.getActivites()
             } catch (e) {
                 showError(e.message)
             } finally {
