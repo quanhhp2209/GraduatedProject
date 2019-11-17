@@ -12,7 +12,10 @@ import { mapping, light as lightTheme } from '@eva-design/eva';
 import * as firebase from 'firebase';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-
+import { Provider, connect } from 'react-redux'
+import store from './src/store';
+import 'firebase/firestore'
+import { navigationService } from './src/services';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAUX3OmOPYGHshAT3p8_yhbTUNjDLSpZEQ",
@@ -88,12 +91,14 @@ const AppContainer = createAppContainer(
 
 export default function App() {
   return (
-    <React.Fragment>
+    <Provider store={store}>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <AppContainer />
+        <AppContainer  ref={navigatorRef => {
+          navigationService.setTopLevelNavigator(navigatorRef);
+        }}/>
       </ApplicationProvider>
-    </React.Fragment>
+    </Provider>
   );
 }
 

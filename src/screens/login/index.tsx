@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { Input, Button, Icon } from 'react-native-ui-kitten';
+import { Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Icon, Input } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { LoadingOverlay } from '../../components';
+import { IRootState } from '../../store';
 
-
-export default class Login extends React.Component<any> {
+class Login extends React.PureComponent<any> {
     state = {
         email: '',
         password: '',
@@ -13,7 +15,7 @@ export default class Login extends React.Component<any> {
     onEmailChange = (email) => {
         this.setState({ email });
     };
-    
+
     onPasswordChange = (password) => {
         this.setState({ password });
     };
@@ -21,23 +23,26 @@ export default class Login extends React.Component<any> {
     onIconPress = () => {
         const secureTextEntry = !this.state.secureTextEntry;
         this.setState({ secureTextEntry });
-
     };
+
     renderIcon = (style) => {
         const iconName = this.state.secureTextEntry ? 'eye-off' : 'eye';
         return (
             <Icon {...style} name={iconName} />
         );
     };
-
-    goToDashboard = () => {
-        this.props.navigation.navigate('Dashboard')
+    z
+    onLogin = async () => {
+        this.props.login({ email: this.state.email, password: this.state.password })
     }
 
     render() {
+
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
+                <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                    <LoadingOverlay isVisible={this.props.userProfile.isLoggingIn} />
+
                     <Image source={require('../../../assets/kindergarten.png')}></Image>
                     <Text style={styles.title}>KidFuture</Text>
                     <Input
@@ -60,18 +65,29 @@ export default class Login extends React.Component<any> {
                         onChangeText={this.onPasswordChange}
                     />
 
-                    <TouchableOpacity style={styles.loginButton} onPress={this.goToDashboard}>
+                    <TouchableOpacity style={styles.loginButton} onPress={this.onLogin}>
                         <Text>LOGIN</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.resetButton}>
                         <Text style={styles.resetPasswordText}>Forgot password?</Text>
                     </TouchableOpacity>
-                </View>
+                </KeyboardAvoidingView >
 
             </TouchableWithoutFeedback>
+
         );
     }
 }
+
+const mapProps = ({ userProfile }: IRootState) => ({
+    userProfile
+})
+
+const mapDispatch: any = ({ userProfile: { login } }) => ({
+    login: ({ email, password }) => login({ email, password }),
+})
+
+export default connect(mapProps, mapDispatch)(Login)
 
 
 const styles = StyleSheet.create({

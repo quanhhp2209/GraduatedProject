@@ -12,7 +12,7 @@ export default function KidDetail() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgb(234, 195, 176)',
+    // backgroundColor: 'rgb(234, 195, 176)',
     alignItems: 'center',
     justifyContent: 'center',
   },
