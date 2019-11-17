@@ -42,7 +42,6 @@ class Login extends React.PureComponent<any> {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                     <LoadingOverlay isVisible={this.props.userProfile.isLoggingIn} />
-
                     <Image source={require('../../../assets/kindergarten.png')}></Image>
                     <Text style={styles.title}>KidFuture</Text>
                     <Input
@@ -94,7 +93,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'rgb(234, 195, 176)',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 16
     },
     title: {
         fontSize: 33,

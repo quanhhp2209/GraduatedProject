@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1040966912755",
+    "firebase_url": "https://graduatedproject-c9985.firebaseio.com",
+    "project_id": "graduatedproject-c9985",
+    "storage_bucket": "graduatedproject-c9985.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040966912755:android:30ac04f308168ff71c8586",
+        "android_client_info": {
+          "package_name": "com.quanh.kidsfuture"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040966912755-qoa829tpksco9ranllpfb59v5d45ijak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCosP8rafZlXb3h7I0llq6ZdX6tGDiFYUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040966912755-qoa829tpksco9ranllpfb59v5d45ijak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
