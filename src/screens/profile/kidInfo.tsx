@@ -1,25 +1,26 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, DatePickerIOS, DatePickerAndroid, Image } from 'react-native';
-import { Avatar, Layout, Icon, Menu, Input, Datepicker } from 'react-native-ui-kitten'
-import moment from 'moment';
-import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import moment from 'moment';
+import React from 'react';
+import { DatePickerAndroid, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { CheckBox, Input } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { IRootState } from '../../store';
 
-
-export default class KidProfile extends React.Component<any, any> {
+class KidProfile extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
-            image: 'https://firebasestorage.googleapis.com/v0/b/graduatedproject-c9985.appspot.com/o/Kids%2F60186920_2396887807044993_7247108784823205888_o.jpg?alt=media&token=b3ca1622-0658-4d95-81d3-e47e08e89b83',
-            fullname: '',
-            nickname: '',
-            studentID: '',
-            date: new Date(),
-            gender: '',
-            className: '',
-            school: '',
+            avatarURL: props.kidProfile.avatarURL,
+            fullname: props.kidProfile.fullname,
+            nickname: props.kidProfile.nickname,
+            studentID: props.kidProfile.studentID,
+            date: new Date(props.kidProfile.dob),
+            gender: props.kidProfile.gender,
+            className: props.kidProfile.class,
+            school: props.kidProfile.school
         };
     }
 
@@ -93,12 +94,13 @@ export default class KidProfile extends React.Component<any, any> {
         }
     };
 
+
     render() {
         return (
             <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
                 <Text style={styles.title}>Kid Profile</Text>
                 <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
-                    <Image source={{ uri: this.state.image }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
+                    <Image source={{ uri: this.state.avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
                 </TouchableOpacity>
                 <Input
                     label='Full name'
@@ -108,7 +110,7 @@ export default class KidProfile extends React.Component<any, any> {
                     returnKeyType='done'
                     value={this.state.fullname}
                     onChangeText={this.onNameChange}
-                    labelStyle={{color: '#000'}}
+                    labelStyle={{ color: '#000' }}
                 />
                 <Input
                     label='Nick name'
@@ -118,6 +120,7 @@ export default class KidProfile extends React.Component<any, any> {
                     returnKeyType='done'
                     value={this.state.nickname}
                     onChangeText={this.onNicknameChange}
+                    labelStyle={{ color: '#000' }}
                 />
                 <Input
                     label='StudentID'
@@ -127,13 +130,10 @@ export default class KidProfile extends React.Component<any, any> {
                     returnKeyType='done'
                     value={this.state.studentID}
                     onChangeText={this.onIDChange}
+                    labelStyle={{ color: '#000' }}
+                    disabled={true}
                 />
-                {/* <Datepicker
-                    date={this.state.date}
-                    icon={CalendarIcon}
-                    onSelect={this.onSelect}
-                    StyledComponentProps={{width: 100}}
-                /> */}
+
                 <View style={{ width: '100%' }}>
                     <Text>Date of Birth</Text>
                     <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
@@ -141,17 +141,25 @@ export default class KidProfile extends React.Component<any, any> {
                     </TouchableOpacity>
                 </View>
 
+                <View style={{width: '100%'}}>
+                    <Text style={{textAlign: 'left'}}>Gender</Text>
+                    <View style={{ flexDirection: 'row' }}>
 
+                        <CheckBox
+                            // style={styles.checkbox}
+                            text='Male'
+                            checked={this.state.gender === 'male'}
+                            onChange={() => this.onGenderChange('male')}
+                        />
+                        <CheckBox
+                            // style={styles.checkbox}
+                            text='Female'
+                            checked={this.state.gender === 'female'}
+                            onChange={() => this.onGenderChange('female')}
+                        /></View>
 
-                <Input
-                    label='Gender'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.gender}
-                    onChangeText={this.onGenderChange}
-                />
+                </View>
+
                 <Input
                     label='Class'
                     size='small'
@@ -160,6 +168,8 @@ export default class KidProfile extends React.Component<any, any> {
                     returnKeyType='done'
                     value={this.state.className}
                     onChangeText={this.onClassChange}
+                    labelStyle={{ color: '#000' }}
+                    disabled={true}
                 />
                 <Input
                     label='School'
@@ -169,6 +179,8 @@ export default class KidProfile extends React.Component<any, any> {
                     returnKeyType='done'
                     value={this.state.school}
                     onChangeText={this.onSchoolChange}
+                    labelStyle={{ color: '#000' }}
+                    disabled={true}
                 />
 
                 <TouchableOpacity style={styles.updateButton}>
@@ -181,6 +193,15 @@ export default class KidProfile extends React.Component<any, any> {
 
 }
 
+const mapProps = ({ kidProfile }: IRootState) => ({
+    kidProfile
+})
+
+const mapDispatch: any = ({ userProfile: { login } }) => ({
+    login: ({ email, password }) => login({ email, password }),
+})
+
+export default connect(mapProps, mapDispatch)(KidProfile)
 
 const styles = StyleSheet.create({
     container: {

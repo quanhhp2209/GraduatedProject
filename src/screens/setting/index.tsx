@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
 import { Avatar, Layout, Icon, Menu } from 'react-native-ui-kitten'
-import EditModal from './EditModal';
 
 export default class Settings extends React.Component<any> {
   constructor(props) {
@@ -14,6 +13,7 @@ export default class Settings extends React.Component<any> {
   gotoKidProfile = () => {
     this.props.navigation.navigate('KidProfile');
   }
+  
   gotoLogin = () => {
     this.props.navigation.navigate('Login');
   }

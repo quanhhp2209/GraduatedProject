@@ -4,16 +4,18 @@ import { Avatar, Layout, Icon, Menu, Input } from 'react-native-ui-kitten';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-export default class ParentProfile extends React.Component<any, any> {
+import { IRootState } from '../../store';
+import { connect } from 'react-redux';
+class ParentProfile extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
-            image: 'https://firebasestorage.googleapis.com/v0/b/graduatedproject-c9985.appspot.com/o/Users%2F53121590_2139412176104354_6852609411551068160_o.jpg?alt=media&token=97c5f51f-35d5-40fc-96de-80b003390890',
-            fullname: '',
-            relationship: '',
-            email: '',
-            address: '',
-            phone: '',
+            avatarURL: props.userProfile.avatarURL,
+            fullname: props.userProfile.name,
+            relationship: props.userProfile.relationship,
+            email: props.userProfile.email,
+            address: props.userProfile.address,
+            phone: props.userProfile.phone
         };
     }
 
@@ -33,70 +35,10 @@ export default class ParentProfile extends React.Component<any, any> {
         this.setState({ phone });
     };
 
-
-    render() {
-        let { image } = this.state;
-        return (
-            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                <Text style={styles.title}>Parent Profile</Text>
-                <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
-                    <Image source={{ uri: image }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
-                </TouchableOpacity>
-                <Input
-                    label='Full name'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.fullname}
-                    onChangeText={this.onNameChange}
-                />
-                <Input
-                    label='Relationship'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.relationship}
-                    onChangeText={this.onRelationshipChange}
-                />
-                <Input
-                    label='Email'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    keyboardType='email-address'
-                    returnKeyType='done'
-                    value={this.state.email}
-                    onChangeText={this.onEmailChange}
-                />
-                <Input
-                    label='Address'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-
-                    returnKeyType='done'
-                    value={this.state.address}
-                    onChangeText={this.onAddressChange}
-                />
-                <Input
-                    label='Phone Number'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    keyboardType='phone-pad'
-                    returnKeyType='done'
-                    value={this.state.phone}
-                    onChangeText={this.onPhoneChange}
-                />
-
-                <TouchableOpacity style={styles.updateButton}>
-                    <Text>Update</Text>
-                </TouchableOpacity>
-
-            </ScrollView>
-        )
+    onUpdate = () => {
+        this.props.updateUserProfile({
+            ...this.state
+        })
     }
 
     componentDidMount() {
@@ -122,10 +64,105 @@ export default class ParentProfile extends React.Component<any, any> {
         });
 
         if (!result.cancelled) {
-            this.setState({ image: result.uri });
+            this.setState({ avatarURL: result.uri });
         }
     };
+
+    render() {
+        let { avatarURL } = this.state;
+        return (
+            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                <Text style={styles.title}>Parent Profile</Text>
+                <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
+                    <Image source={{ uri: avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
+                </TouchableOpacity>
+                <Input
+                    label='Full name'
+                    size='small'
+                    style={styles.textInput}
+                    status='danger'
+                    returnKeyType='done'
+                    value={this.state.fullname}
+                    onChangeText={this.onNameChange}
+                    labelStyle={{ color: '#000' }}
+                />
+                <Input
+                    label='Relationship'
+                    size='small'
+                    style={styles.textInput}
+                    status='danger'
+                    returnKeyType='done'
+                    value={this.state.relationship}
+                    onChangeText={this.onRelationshipChange}
+                    labelStyle={{ color: '#000' }}
+                />
+                <Input
+                    label='Email'
+                    size='small'
+                    style={styles.textInput}
+                    status='danger'
+                    keyboardType='email-address'
+                    returnKeyType='done'
+                    value={this.state.email}
+                    onChangeText={this.onEmailChange}
+                    labelStyle={{ color: '#000' }}
+                />
+                <Input
+                    label='Address'
+                    size='small'
+                    style={styles.textInput}
+                    status='danger'
+                    returnKeyType='done'
+                    value={this.state.address}
+                    onChangeText={this.onAddressChange}
+                    labelStyle={{ color: '#000' }}
+                />
+                <Input
+                    label='Phone Number'
+                    size='small'
+                    style={styles.textInput}
+                    status='danger'
+                    keyboardType='phone-pad'
+                    returnKeyType='done'
+                    value={this.state.phone}
+                    onChangeText={this.onPhoneChange}
+                    labelStyle={{ color: '#000' }}
+                />
+
+                <TouchableOpacity style={styles.updateButton} onPress={this.onUpdate}>
+                    <Text>Update</Text>
+                </TouchableOpacity>
+
+            </ScrollView>
+        )
+    }
+
 }
+
+const mapProps = ({ userProfile }: IRootState) => ({
+    userProfile
+})
+
+const mapDispatch: any = ({ userProfile: { login, updateUserProfile } }) => ({
+    login: ({ email, password }) => login({ email, password }),
+    updateUserProfile: ({
+        avatarURL,
+        fullname,
+        relationship,
+        email,
+        address,
+        phone
+    }) => updateUserProfile({
+        avatarURL,
+        fullname,
+        relationship,
+        email,
+        address,
+        phone
+    }),
+})
+
+export default connect(mapProps, mapDispatch)(ParentProfile)
 
 const styles = StyleSheet.create({
     container: {

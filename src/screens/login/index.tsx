@@ -33,6 +33,7 @@ class Login extends React.PureComponent<any> {
     };
     z
     onLogin = async () => {
+        Keyboard.dismiss()
         this.props.login({ email: this.state.email, password: this.state.password })
     }
 
@@ -49,6 +50,7 @@ class Login extends React.PureComponent<any> {
                         size='small'
                         style={styles.textInput}
                         status='primary'
+                        keyboardType='email-address'
                         value={this.state.email}
                         onChangeText={this.onEmailChange}
                     />

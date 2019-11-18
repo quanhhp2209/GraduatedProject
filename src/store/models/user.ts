@@ -1,5 +1,5 @@
 import firebase from "firebase"
-import { showError } from "../../core"
+import { showError, showSuccess } from "../../core"
 import { navigationService } from "../../services"
 const initialValue = {
     address: '',
@@ -35,8 +35,22 @@ export const userProfile = {
                 this.setIsLogging(true)
                 const credential: firebase.auth.UserCredential = await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password);
                 const userSnapshot = await firebase.firestore().collection('Users').doc(credential.user.uid).get();
-                this.setUserProfile(userSnapshot.data())
+                this.setUserProfile({ ...userSnapshot.data(), id: userSnapshot.id })
+                dispatch.kidProfile.getKidInfo()
                 navigationService.navigate('Dashboard')
+            } catch (e) {
+                showError(e.message)
+            } finally {
+                this.setIsLogging(false)
+            }
+        },
+        async updateUserProfile(payload, rootState) {
+            try {
+                this.setIsLogging(true)
+                await firebase.firestore().collection('Users').doc(rootState.userProfile.id).update({
+                    ...payload
+                });
+                showSuccess('Update successfully')
             } catch (e) {
                 showError(e.message)
             } finally {
