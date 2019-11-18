@@ -38,6 +38,8 @@ export const userProfile = {
                 this.setUserProfile({ ...userSnapshot.data(), id: userSnapshot.id })
                 dispatch.kidProfile.getKidInfo()
                 navigationService.navigate('Dashboard')
+
+                dispatch.activity.getActivites()
             } catch (e) {
                 showError(e.message)
             } finally {
