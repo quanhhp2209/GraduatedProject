@@ -4,7 +4,7 @@ import { Icon, Input } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { LoadingOverlay } from '../../components';
 import { IRootState } from '../../store';
-
+// import { Container, Header, Content, Form, Item, Input, Label } from 'native-base';
 class Login extends React.PureComponent<any> {
     state = {
         email: '',
@@ -31,7 +31,7 @@ class Login extends React.PureComponent<any> {
             <Icon {...style} name={iconName} />
         );
     };
-    z
+    
     onLogin = async () => {
         Keyboard.dismiss()
         this.props.login({ email: this.state.email, password: this.state.password })
@@ -44,34 +44,37 @@ class Login extends React.PureComponent<any> {
                 <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                     <LoadingOverlay isVisible={this.props.userProfile.isLoggingIn} />
                     <Image source={require('../../../assets/kindergarten.png')}></Image>
-                    <Text style={styles.title}>KidFuture</Text>
+                    <Text style={styles.title}>KidsFuture</Text>
                     <Input
                         placeholder="Enter your username"
                         size='small'
                         style={styles.textInput}
-                        status='primary'
+                        status='danger'
                         keyboardType='email-address'
                         value={this.state.email}
                         onChangeText={this.onEmailChange}
+                        textStyle={{color: 'black'}}
                     />
 
                     <Input placeholder="Enter your password"
                         size='small'
                         style={styles.textInput}
-                        status='primary'
+                        status='danger'
                         value={this.state.password}
                         icon={this.renderIcon}
                         secureTextEntry={this.state.secureTextEntry}
                         onIconPress={this.onIconPress}
                         onChangeText={this.onPasswordChange}
+                        textStyle={{color: 'black'}}
                     />
 
-                    <TouchableOpacity style={styles.loginButton} onPress={this.onLogin}>
-                        <Text>LOGIN</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.resetButton}>
                         <Text style={styles.resetPasswordText}>Forgot password?</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.loginButton} onPress={this.onLogin}>
+                        <Text>LOG IN</Text>
+                    </TouchableOpacity>
+
                 </KeyboardAvoidingView >
 
             </TouchableWithoutFeedback>

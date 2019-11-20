@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Avatar, Layout, Icon, Menu, Input } from 'react-native-ui-kitten';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -71,69 +71,76 @@ class ParentProfile extends React.Component<any, any> {
     render() {
         let { avatarURL } = this.state;
         return (
-            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                <Text style={styles.title}>Parent Profile</Text>
-                <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
-                    <Image source={{ uri: avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
-                </TouchableOpacity>
-                <Input
-                    label='Full name'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.fullname}
-                    onChangeText={this.onNameChange}
-                    labelStyle={{ color: '#000' }}
-                />
-                <Input
-                    label='Relationship'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.relationship}
-                    onChangeText={this.onRelationshipChange}
-                    labelStyle={{ color: '#000' }}
-                />
-                <Input
-                    label='Email'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    keyboardType='email-address'
-                    returnKeyType='done'
-                    value={this.state.email}
-                    onChangeText={this.onEmailChange}
-                    labelStyle={{ color: '#000' }}
-                />
-                <Input
-                    label='Address'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.address}
-                    onChangeText={this.onAddressChange}
-                    labelStyle={{ color: '#000' }}
-                />
-                <Input
-                    label='Phone Number'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    keyboardType='phone-pad'
-                    returnKeyType='done'
-                    value={this.state.phone}
-                    onChangeText={this.onPhoneChange}
-                    labelStyle={{ color: '#000' }}
-                />
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                    <Text style={styles.title}>Parent Profile</Text>
+                    <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
+                        <Image source={{ uri: avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
+                    </TouchableOpacity>
+                    <Input
+                        label='Full name'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.fullname}
+                        onChangeText={this.onNameChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
+                    <Input
+                        label='Relationship'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.relationship}
+                        onChangeText={this.onRelationshipChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
+                    <Input
+                        label='Email'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        keyboardType='email-address'
+                        returnKeyType='done'
+                        value={this.state.email}
+                        onChangeText={this.onEmailChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
+                    <Input
+                        label='Address'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.address}
+                        onChangeText={this.onAddressChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
+                    <Input  
+                        label='Phone Number'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        keyboardType='phone-pad'
+                        returnKeyType='done'
+                        value={this.state.phone}
+                        onChangeText={this.onPhoneChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
 
-                <TouchableOpacity style={styles.updateButton} onPress={this.onUpdate}>
-                    <Text>Update</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity style={styles.updateButton} onPress={this.onUpdate}>
+                        <Text>Update</Text>
+                    </TouchableOpacity>
 
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         )
     }
 
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
     },
 
     updateButton: {
-        width: 200,
+        width: 100,
         height: 45,
         borderRadius: 6,
         justifyContent: 'center',

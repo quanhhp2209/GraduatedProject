@@ -1,5 +1,5 @@
 import firebase from "firebase"
-import { showError } from "../../core"
+import { showError, showSuccess } from "../../core"
 import { navigationService } from "../../services"
 const initialValue = {
     fullname: '',
@@ -42,6 +42,20 @@ export const kidProfile = {
                 showError(e.message)
             } finally {
                 this.setIsBusy(false)
+            }
+        },
+
+        async updateKidProfile(payload, rootState) {
+            try {
+                this.setIsLogging(true)
+                await firebase.firestore().collection('Kids').doc(rootState.kidProfile.id).update({
+                    ...payload
+                });
+                showSuccess('Update successfully')
+            } catch (e) {
+                showError(e.message)
+            } finally {
+                this.setIsLogging(false)
             }
         },
     }),

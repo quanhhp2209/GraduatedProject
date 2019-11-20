@@ -66,6 +66,12 @@ class KidProfile extends React.Component<any, any> {
         }
     }
 
+    onUpdate = () => {
+        this.props.updateKidProfile({
+            ...this.state
+        })
+    }
+
 
     componentDidMount() {
         this.getPermissionAsync();
@@ -94,7 +100,6 @@ class KidProfile extends React.Component<any, any> {
         }
     };
 
-
     render() {
         return (
             <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -111,6 +116,7 @@ class KidProfile extends React.Component<any, any> {
                     value={this.state.fullname}
                     onChangeText={this.onNameChange}
                     labelStyle={{ color: '#000' }}
+                    textStyle={{ color: '#000' }}
                 />
                 <Input
                     label='Nick name'
@@ -121,6 +127,7 @@ class KidProfile extends React.Component<any, any> {
                     value={this.state.nickname}
                     onChangeText={this.onNicknameChange}
                     labelStyle={{ color: '#000' }}
+                    textStyle={{ color: '#000' }}
                 />
                 <Input
                     label='StudentID'
@@ -131,6 +138,7 @@ class KidProfile extends React.Component<any, any> {
                     value={this.state.studentID}
                     onChangeText={this.onIDChange}
                     labelStyle={{ color: '#000' }}
+                    textStyle={{ color: '#000' }}
                     disabled={true}
                 />
 
@@ -141,21 +149,22 @@ class KidProfile extends React.Component<any, any> {
                     </TouchableOpacity>
                 </View>
 
-                <View style={{width: '100%'}}>
-                    <Text style={{textAlign: 'left'}}>Gender</Text>
+                <View style={{ width: '100%' }}>
+                    <Text style={{ textAlign: 'left' }}>Gender</Text>
                     <View style={{ flexDirection: 'row' }}>
 
                         <CheckBox
-                            // style={styles.checkbox}
+                            status='danger'
                             text='Male'
                             checked={this.state.gender === 'male'}
                             onChange={() => this.onGenderChange('male')}
                         />
                         <CheckBox
-                            // style={styles.checkbox}
+                            status='danger'
                             text='Female'
                             checked={this.state.gender === 'female'}
                             onChange={() => this.onGenderChange('female')}
+                            disabled={true}
                         /></View>
 
                 </View>
@@ -169,6 +178,7 @@ class KidProfile extends React.Component<any, any> {
                     value={this.state.className}
                     onChangeText={this.onClassChange}
                     labelStyle={{ color: '#000' }}
+                    textStyle={{ color: '#000' }}
                     disabled={true}
                 />
                 <Input
@@ -180,25 +190,43 @@ class KidProfile extends React.Component<any, any> {
                     value={this.state.school}
                     onChangeText={this.onSchoolChange}
                     labelStyle={{ color: '#000' }}
+                    textStyle={{ color: '#000' }}
                     disabled={true}
                 />
 
-                <TouchableOpacity style={styles.updateButton}>
+                <TouchableOpacity style={styles.updateButton} onPress={this.onUpdate}>
                     <Text>Update</Text>
                 </TouchableOpacity>
             </ScrollView>
         )
     }
-
-
 }
 
 const mapProps = ({ kidProfile }: IRootState) => ({
     kidProfile
 })
 
-const mapDispatch: any = ({ userProfile: { login } }) => ({
+const mapDispatch: any = ({ userProfile: { login, updateKidProfile } }) => ({
     login: ({ email, password }) => login({ email, password }),
+    updateKidProfile: ({
+        avatarURL,
+        fullname,
+        nickname,
+        studentID,
+        date,
+        gender,
+        className,
+        school
+    }) => updateKidProfile({
+        avatarURL,
+        fullname,
+        nickname,
+        studentID,
+        date,
+        gender,
+        className,
+        school
+    }),
 })
 
 export default connect(mapProps, mapDispatch)(KidProfile)

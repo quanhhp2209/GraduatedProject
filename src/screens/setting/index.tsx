@@ -21,9 +21,6 @@ export default class Settings extends React.Component<any> {
   render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.avatar}
-          source={{ uri: "https://firebasestorage.googleapis.com/v0/b/graduatedproject-c9985.appspot.com/o/Users%2F53121590_2139412176104354_6852609411551068160_o.jpg?alt=media&token=97c5f51f-35d5-40fc-96de-80b003390890" }}>
-        </Image>
         <TouchableOpacity style={styles.settingButton} onPress={this.gotoParentProfile}>
           <Text>Parent Profile</Text>
         </TouchableOpacity>
@@ -60,5 +57,11 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     marginVertical: 4
-}
+  },
+
+  title: {
+    fontSize: 33,
+    fontWeight: `bold`,
+    color: `rgb(221, 97, 97)`
+  }
 });
