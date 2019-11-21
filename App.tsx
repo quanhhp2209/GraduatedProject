@@ -18,6 +18,7 @@ import { Provider, connect } from 'react-redux'
 import store from './src/store';
 import 'firebase/firestore'
 import { navigationService } from './src/services';
+import AlbumDetailSreen from './src/screens/albumDetail';
 
 
 const firebaseConfig = {
@@ -70,17 +71,29 @@ export const BottomNavigationShowcase = (props) => {
   );
 }
 
+
+
 const AuthStack = createStackNavigator({ Login: LoginScreen }, { headerMode: 'none' });
+const DashboardStack = createStackNavigator(
+  {
+    Dashboard: { screen: DashboardScreen },
+    AlbumDetail: { screen: AlbumDetailSreen },
+  });
+const KidDetailStack = createStackNavigator({ KidDetail: KidDetailScreen });
+const MoreOptionsStack = createStackNavigator({ MoreOptions: MoreOptionsScreen });
+const SettingStack = createStackNavigator({ Setting: SettingScreen });
+
 const AppStack = createBottomTabNavigator({
-  Dashboard: DashboardScreen,
-  KidDetail: KidDetailScreen,
-  moreOptions: MoreOptionsScreen,
-  Setting: SettingScreen,
+  DashboardStack: DashboardStack,
+  KidDetailStack: KidDetailStack,
+  MoreOptionsStack: MoreOptionsStack,
+  SettingStack: SettingStack,
   ParentProfile: ParentProfileScreen,
   KidProfile: KidProfileScreen
 }, {
-  initialRouteName: 'Dashboard',
+  initialRouteName: 'DashboardStack',
   tabBarComponent: BottomNavigationShowcase,
+
 });
 
 const AppContainer = createAppContainer(
@@ -100,9 +113,9 @@ export default function App() {
     <Provider store={store}>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <AppContainer  ref={navigatorRef => {
+        <AppContainer ref={navigatorRef => {
           navigationService.setTopLevelNavigator(navigatorRef);
-        }}/>
+        }} />
       </ApplicationProvider>
     </Provider>
   );

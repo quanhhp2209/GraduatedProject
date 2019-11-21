@@ -1,19 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
-const data = [{
-    activity: 'abc',
-    time: ' 7h30 - 7h45'
-},
-{
-    activity: 'abc',
-    time: ' 7h30 - 7h45'
-},
-{
-    activity: 'abc',
-    time: ' 7h30 - 7h45'
-}]
 export class LearnActivity extends React.PureComponent<any> {
 
     renderItem = (item) => {

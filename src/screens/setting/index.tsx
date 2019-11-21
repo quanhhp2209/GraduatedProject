@@ -3,6 +3,10 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-n
 import { Avatar, Layout, Icon, Menu } from 'react-native-ui-kitten'
 
 export default class Settings extends React.Component<any> {
+  static navigationOptions = {
+    title: 'Settings',
+  };
+
   constructor(props) {
     super(props);
   }

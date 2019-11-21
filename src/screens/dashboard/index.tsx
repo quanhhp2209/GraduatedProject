@@ -5,11 +5,15 @@ import { IRootState } from '../../store';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect'
 import _ from 'lodash';
-import { NutritionActivity, NapActivity, LearnActivity, Wrapper, LoadingOverlay } from '../../components';
+import { NutritionActivity, NapActivity, LearnActivity, Wrapper, LoadingOverlay, Album } from '../../components';
 import moment from 'moment';
 
 
 class Dashboard extends React.PureComponent<any> {
+
+  static navigationOptions = {
+    title: 'Dashboard',
+  };
 
   renderItem = ({ item }) => {
     if (item.type === 'nutrition') {
@@ -27,6 +31,12 @@ class Dashboard extends React.PureComponent<any> {
     if (item.type === 'learn') {
       return <View style={styles.activityContainer} key={item.id}>
         <LearnActivity activity={item} />
+      </View>
+    }
+
+    if (item.type === 'album') {
+      return <View style={styles.activityContainer} key={item.id}>
+        <Album album={item} />
       </View>
     }
 
@@ -76,7 +86,6 @@ export default connect(mapProps)(Dashboard)
 const styles = StyleSheet.create({
   activityContainer: {
     marginTop: 16,
-    
   },
   headerContainer: {
     width: '100%',

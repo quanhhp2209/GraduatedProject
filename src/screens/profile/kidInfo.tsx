@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { IRootState } from '../../store';
 
 class KidProfile extends React.Component<any, any> {
+
     constructor(props) {
         super(props);
         this.state = {
