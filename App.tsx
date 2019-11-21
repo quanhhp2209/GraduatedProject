@@ -74,7 +74,7 @@ const AuthStack = createStackNavigator({ Login: LoginScreen }, { headerMode: 'no
 const AppStack = createBottomTabNavigator({
   Dashboard: DashboardScreen,
   KidDetail: KidDetailScreen,
-  moreOptions: MoreOptionsScreen,
+  MoreOptions: MoreOptionsScreen,
   Setting: SettingScreen,
   ParentProfile: ParentProfileScreen,
   KidProfile: KidProfileScreen
