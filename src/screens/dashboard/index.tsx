@@ -75,7 +75,8 @@ export default connect(mapProps)(Dashboard)
 
 const styles = StyleSheet.create({
   activityContainer: {
-    marginTop: 16
+    marginTop: 16,
+    
   },
   headerContainer: {
     width: '100%',
@@ -90,6 +91,6 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   contentContainer: {
-    paddingVertical: 12
+    paddingVertical: 12,
   }
 });

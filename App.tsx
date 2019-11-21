@@ -6,7 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import DashboardScreen from './src/screens/dashboard';
 import LoginScreen from './src/screens/login';
 import SettingScreen from './src/screens/setting';
-import NotificationScreen from './src/screens/notification';
+import MoreOptionsScreen from './src/screens/moreOptions';
 import KidDetailScreen from './src/screens/infodetail';
 import ParentProfileScreen from './src/screens/profile/parentInfo';
 import KidProfileScreen from './src/screens/profile/kidInfo';
@@ -42,8 +42,8 @@ const KidDetailsIcon = () => (
   <Icon name='person-outline' fill='rgb(221, 97, 97)' />
 );
 
-const NotificationsIcon = () => (
-  <Icon name='bell-outline' fill='rgb(221, 97, 97)' />
+const MoresIcon = () => (
+  <Icon name='grid-outline' fill='rgb(221, 97, 97)' />
 );
 const SettingsIcon = () => (
   <Icon name='settings' fill='rgb(221, 97, 97)' />
@@ -64,7 +64,7 @@ export const BottomNavigationShowcase = (props) => {
       onSelect={onTabSelect}>
       <BottomNavigationTab icon={DashboardIcon} />
       <BottomNavigationTab icon={KidDetailsIcon} />
-      <BottomNavigationTab icon={NotificationsIcon} />
+      <BottomNavigationTab icon={MoresIcon} />
       <BottomNavigationTab icon={SettingsIcon} />
     </BottomNavigation>
   );
@@ -74,7 +74,7 @@ const AuthStack = createStackNavigator({ Login: LoginScreen }, { headerMode: 'no
 const AppStack = createBottomTabNavigator({
   Dashboard: DashboardScreen,
   KidDetail: KidDetailScreen,
-  Notification: NotificationScreen,
+  moreOptions: MoreOptionsScreen,
   Setting: SettingScreen,
   ParentProfile: ParentProfileScreen,
   KidProfile: KidProfileScreen
