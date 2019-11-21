@@ -12,6 +12,11 @@ import { IRootState } from '../../store';
 
 class KidDetail extends React.PureComponent<any, any> {
 
+  static navigationOptions = {
+    title: 'Kid Activities',
+  };
+
+
   constructor(props) {
     super(props);
     const today = moment().startOf('day').toISOString()

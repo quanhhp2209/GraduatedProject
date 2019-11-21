@@ -3,6 +3,12 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-n
 import { Avatar, Layout, Icon, Menu } from 'react-native-ui-kitten'
 import Modal from 'react-native-modal';
 export default class MoreOptions extends React.Component<any> {
+
+  static navigationOptions = {
+    title: 'More Options',
+  };
+
+
   constructor(props) {
     super(props);
   }
