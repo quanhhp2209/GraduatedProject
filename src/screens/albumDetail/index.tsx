@@ -15,7 +15,6 @@ class AlbumDetail extends React.PureComponent<any, any> {
 
     render() {
         const { album } = this.props
-        console.log('album', album)
         return (
             <ScrollView contentContainerStyle={styles.container}>
                 <Image source={{ uri: album.images[0] }} style={styles.banner} />
