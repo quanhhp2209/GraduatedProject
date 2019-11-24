@@ -37,8 +37,11 @@ class Login extends React.PureComponent<any> {
         this.props.login({ email: this.state.email, password: this.state.password })
     }
 
-    render() {
+    onForgotPassword = () => {
+        this.props.navigation.navigate('ForgotPassword')
+    }
 
+    render() {
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
@@ -69,7 +72,7 @@ class Login extends React.PureComponent<any> {
                         textStyle={{color: 'black'}}
                     />
 
-                    <TouchableOpacity style={styles.resetButton}>
+                    <TouchableOpacity style={styles.resetButton} onPress={this.onForgotPassword}>
                         <Text style={styles.resetPasswordText}>Forgot password?</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.loginButton} onPress={this.onLogin}>
