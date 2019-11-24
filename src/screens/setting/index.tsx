@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { Avatar, Layout, Icon, Menu } from 'react-native-ui-kitten'
 
 export default class Settings extends React.Component<any> {
@@ -24,6 +24,7 @@ export default class Settings extends React.Component<any> {
 
   render() {
     return (
+      <ImageBackground source={require('../../../assets/background.jpg')} style={{width: '100%', height: '100%'}}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.settingButton} onPress={this.gotoParentProfile}>
           <Text>Parent Profile</Text>
@@ -35,6 +36,7 @@ export default class Settings extends React.Component<any> {
           <Text>LOG OUT</Text>
         </TouchableOpacity>
       </View>
+      </ImageBackground>
     )
   }
 }
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
   },
 
   settingButton: {
-    width: 329,
+    width: 200,
     height: 45,
     borderRadius: 6,
     justifyContent: 'center',

@@ -1,8 +1,13 @@
 import React from 'react';
-import { DatePickerAndroid, StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
+import { DatePickerAndroid, StyleSheet, Text, View, Button, TouchableOpacity, ImageBackground } from 'react-native';
 import { Input } from 'react-native-ui-kitten';
 import moment from 'moment';
 export default class AbsenceRequests extends React.Component<any, any> {
+  
+    static navigationOptions = {
+        title: 'Absence Requests',
+      };
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -36,30 +41,29 @@ export default class AbsenceRequests extends React.Component<any, any> {
 
     render() {
         return (
-            <View style = {styles.container}>
-                <View style={{ width: '100%' }}>
-                    <Text>Date of Birth</Text>
-                    <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
-                        <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
-                    </TouchableOpacity>
-                    <Input
-                        label='Reason'
-                        size='large'
-                        style={styles.textInput}
-                        status='danger'
-                        returnKeyType='done'
-                        value={this.state.fullname}
-                        onChangeText={this.onContentChange}
-                        labelStyle={{ color: '#000' }}
-                        textStyle={{ color: '#000' }}
-                        multiline
-                    />
-                    <TouchableOpacity style={styles.submitButton} >
-                        <Text>Submit</Text>
-                    </TouchableOpacity>
-                </View>
+            <ImageBackground source={require('../../../assets/background4.jpg')} style={{width: '100%', height: '100%'}}>
+            <View style={styles.container}>
+                <Text style={{textAlign: 'left'}}>Pick a date</Text>
+                <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
+                    <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
+                </TouchableOpacity>
+                <Input
+                    label='Reason'
+                    size='large'
+                    style={styles.textInput}
+                    status='danger'
+                    returnKeyType='done'
+                    value={this.state.fullname}
+                    onChangeText={this.onContentChange}
+                    labelStyle={{ color: '#000' }}
+                    textStyle={{ color: '#000' }}
+                    multiline
+                />
+                <TouchableOpacity style={styles.submitButton} >
+                    <Text>Submit</Text>
+                </TouchableOpacity>
             </View>
-
+            </ImageBackground>
         );
     }
 }
@@ -68,21 +72,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // backgroundColor: 'rgb(234, 195, 176)',
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         padding: 16
     },
 
     dateholder: {
         height: 40,
         width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
         borderRadius: 6
     },
 
     textInput: {
         borderRadius: 6,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
+
     },
 
     submitButton: {
@@ -92,6 +97,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(221, 97, 97)',
-        marginVertical: 4
+        marginVertical: 4,
+        alignSelf: 'center'
     },
 })

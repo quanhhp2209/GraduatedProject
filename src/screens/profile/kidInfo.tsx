@@ -3,11 +3,12 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import moment from 'moment';
 import React from 'react';
-import { DatePickerAndroid, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { DatePickerAndroid, Image,  StyleSheet, Text, ImageBackground, TouchableOpacity, View, Platform } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { CheckBox, Input } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { IRootState } from '../../store';
+import SafeAreaView from 'react-native-safe-area-view';
 
 class KidProfile extends React.Component<any, any> {
 
@@ -24,6 +25,11 @@ class KidProfile extends React.Component<any, any> {
             school: props.kidProfile.school
         };
     }
+
+    static navigationOptions = {
+        title: 'Kid Profile',
+    };
+
 
 
     onNameChange = (fullname) => {
@@ -103,102 +109,106 @@ class KidProfile extends React.Component<any, any> {
 
     render() {
         return (
-            <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                <Text style={styles.title}>Kid Profile</Text>
-                <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
-                    <Image source={{ uri: this.state.avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
-                </TouchableOpacity>
-                <Input
-                    label='Full name'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.fullname}
-                    onChangeText={this.onNameChange}
-                    labelStyle={{ color: '#000' }}
-                    textStyle={{ color: '#000' }}
-                />
-                <Input
-                    label='Nick name'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.nickname}
-                    onChangeText={this.onNicknameChange}
-                    labelStyle={{ color: '#000' }}
-                    textStyle={{ color: '#000' }}
-                />
-                <Input
-                    label='StudentID'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.studentID}
-                    onChangeText={this.onIDChange}
-                    labelStyle={{ color: '#000' }}
-                    textStyle={{ color: '#000' }}
-                    disabled={true}
-                />
-
-                <View style={{ width: '100%' }}>
-                    <Text>Date of Birth</Text>
-                    <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
-                        <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
+            <ImageBackground source={require('../../../assets/background5.jpg')} style={{width: '100%', height: '100%'}}>   
+            <SafeAreaView style={styles.androidSafeArea}>
+                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+                    <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
+                        <Image source={{ uri: this.state.avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
                     </TouchableOpacity>
-                </View>
+                    <Input
+                        label='Full name'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.fullname}
+                        onChangeText={this.onNameChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
+                    <Input
+                        label='Nick name'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.nickname}
+                        onChangeText={this.onNicknameChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                    />
 
-                <View style={{ width: '100%' }}>
-                    <Text style={{ textAlign: 'left' }}>Gender</Text>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ width: '100%' }}>
+                        <Text>Date of Birth</Text>
+                        <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
+                            <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
+                        </TouchableOpacity>
+                    </View>
 
-                        <CheckBox
-                            status='danger'
-                            text='Male'
-                            checked={this.state.gender === 'male'}
-                            onChange={() => this.onGenderChange('male')}
-                        />
-                        <CheckBox
-                            status='danger'
-                            text='Female'
-                            checked={this.state.gender === 'female'}
-                            onChange={() => this.onGenderChange('female')}
-                            disabled={true}
-                        /></View>
+                    <View style={{ width: '100%' }}>
+                        <Text style={{ textAlign: 'left' }}>Gender</Text>
+                        <View style={{ flexDirection: 'row' }}>
 
-                </View>
+                            <CheckBox
+                                status='danger'
+                                text='Male'
+                                checked={this.state.gender === 'male'}
+                                onChange={() => this.onGenderChange('male')}
+                            />
+                            <CheckBox
+                                status='danger'
+                                text='Female'
+                                checked={this.state.gender === 'female'}
+                                onChange={() => this.onGenderChange('female')}
+                                disabled={true}
+                            /></View>
 
-                <Input
-                    label='Class'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.className}
-                    onChangeText={this.onClassChange}
-                    labelStyle={{ color: '#000' }}
-                    textStyle={{ color: '#000' }}
-                    disabled={true}
-                />
-                <Input
-                    label='School'
-                    size='small'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.school}
-                    onChangeText={this.onSchoolChange}
-                    labelStyle={{ color: '#000' }}
-                    textStyle={{ color: '#000' }}
-                    disabled={true}
-                />
+                    </View>
 
-                <TouchableOpacity style={styles.updateButton} onPress={this.onUpdate}>
-                    <Text>Update</Text>
-                </TouchableOpacity>
-            </ScrollView>
+                    <Input
+                        label='StudentID'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.studentID}
+                        onChangeText={this.onIDChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                        disabled={true}
+                    />
+
+                    <Input
+                        label='Class'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.className}
+                        onChangeText={this.onClassChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                        disabled={true}
+                    />
+                    <Input
+                        label='School'
+                        size='small'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.school}
+                        onChangeText={this.onSchoolChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                        disabled={true}
+                    />
+
+                    <TouchableOpacity style={styles.updateButton} onPress={this.onUpdate}>
+                        <Text>Update</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </SafeAreaView>
+            </ImageBackground>
         )
     }
 }
@@ -235,19 +245,13 @@ export default connect(mapProps, mapDispatch)(KidProfile)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgb(234, 195, 176)',
+        // backgroundColor: 'rgb(234, 195, 176)',
         paddingHorizontal: 16,
-        marginTop: 24
     },
 
-    title: {
-        fontSize: 33,
-        fontWeight: `bold`,
-        color: `rgb(221, 97, 97)`
-    },
     textInput: {
         borderRadius: 6,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
     },
 
     updateButton: {
@@ -263,7 +267,7 @@ const styles = StyleSheet.create({
     dateholder: {
         height: 40,
         width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
         borderRadius: 6
     },
 
@@ -271,5 +275,11 @@ const styles = StyleSheet.create({
         alignItems: `center`,
         justifyContent: `center`,
         flexGrow: 1
+    },
+
+    androidSafeArea: {
+        flex: 1,
+        // backgroundColor: npLBlue,
+        paddingTop: Platform.OS === 'android' ? 25 : 0
     },
 })

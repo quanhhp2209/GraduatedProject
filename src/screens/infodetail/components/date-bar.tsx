@@ -68,7 +68,7 @@ const sideWidth = (Dimensions.get('window').width / 7) - 6
 
 const styles = StyleSheet.create({
     dateItem: {
-        backgroundColor: '#A3BDFF',
+        backgroundColor: '#rgb(234, 195, 176)',
         borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         width: sideWidth
     },
     dateItemActive: {
-        backgroundColor: '#5686FF',
+        backgroundColor: '#rgb(221, 97, 97)',
         height: sideWidth,
         width: sideWidth,
         borderRadius: 4,

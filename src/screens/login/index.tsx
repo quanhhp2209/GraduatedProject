@@ -139,6 +139,6 @@ const styles = StyleSheet.create({
     textInput: {
         borderRadius: 6,
         marginVertical: 4,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
     }
 });

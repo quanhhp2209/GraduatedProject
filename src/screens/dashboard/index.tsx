@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     borderRadius: 4,
-    backgroundColor: '#57CAFF',
+    backgroundColor: '#rgb(221, 97, 97)',
     paddingVertical: 24
   },
   header: {

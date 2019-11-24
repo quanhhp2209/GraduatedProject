@@ -10,6 +10,8 @@ import MoreOptionsScreen from './src/screens/moreOptions';
 import KidDetailScreen from './src/screens/infodetail';
 import ParentProfileScreen from './src/screens/profile/parentInfo';
 import KidProfileScreen from './src/screens/profile/kidInfo';
+import AbsenceRequestsScreen from './src/screens/moreOptions/absenceRequests';
+import TeacherContactsScreen from './src/screens/moreOptions/teacherContacts';
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import * as firebase from 'firebase';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -19,6 +21,7 @@ import store from './src/store';
 import 'firebase/firestore'
 import { navigationService } from './src/services';
 import AlbumDetailSreen from './src/screens/albumDetail';
+import AbsenceRequests from './src/screens/moreOptions/absenceRequests';
 
 
 const firebaseConfig = {
@@ -80,16 +83,24 @@ const DashboardStack = createStackNavigator(
     AlbumDetail: { screen: AlbumDetailSreen },
   });
 const KidDetailStack = createStackNavigator({ KidDetail: KidDetailScreen });
-const MoreOptionsStack = createStackNavigator({ MoreOptions: MoreOptionsScreen });
-const SettingStack = createStackNavigator({ Setting: SettingScreen });
+const MoreOptionsStack = createStackNavigator({
+  MoreOptions: MoreOptionsScreen,
+  AbsenceRequests: AbsenceRequestsScreen,
+  TeacherContacts: TeacherContactsScreen
+});
+const SettingStack = createStackNavigator({
+  Setting: SettingScreen,
+  ParentProfile: ParentProfileScreen,
+  KidProfile: KidProfileScreen,
+});
+
 
 const AppStack = createBottomTabNavigator({
   DashboardStack: DashboardStack,
   KidDetailStack: KidDetailStack,
   MoreOptionsStack: MoreOptionsStack,
   SettingStack: SettingStack,
-  ParentProfile: ParentProfileScreen,
-  KidProfile: KidProfileScreen
+
 }, {
   initialRouteName: 'DashboardStack',
   tabBarComponent: BottomNavigationShowcase,

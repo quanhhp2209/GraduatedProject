@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
     time: {
         paddingLeft: 12,
         fontWeight: '700',
-        color: '#57CAFF',
+        color: '#rgb(221, 97, 97)',
         fontSize: 13
     },
     circle: {
         width: circleDiameter,
         height: circleDiameter,
         borderRadius: circleDiameter / 2,
-        backgroundColor: '#57CAFF'
+        backgroundColor: '#rgb(221, 97, 97)'
     },
     activityContainer: {
         flexDirection: 'row',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     line: {
         height: '100%',
         borderWidth: 1,
-        borderColor: '#DAEDFF',
+        borderColor: '#rgb(234, 195, 176)',
         alignSelf: 'center'
     },
     activity: {

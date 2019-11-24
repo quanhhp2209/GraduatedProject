@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Avatar, Layout, Icon, Menu, Input } from 'react-native-ui-kitten';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { IRootState } from '../../store';
 import { connect } from 'react-redux';
+import SafeAreaView from 'react-native-safe-area-view';
 class ParentProfile extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -18,6 +19,11 @@ class ParentProfile extends React.Component<any, any> {
             phone: props.userProfile.phone
         };
     }
+
+    static navigationOptions = {
+        title: 'Parent Profile',
+      };
+    
 
     onNameChange = (fullname) => {
         this.setState({ fullname });
@@ -71,9 +77,10 @@ class ParentProfile extends React.Component<any, any> {
     render() {
         let { avatarURL } = this.state;
         return (
+            <ImageBackground source={require('../../../assets/background3.jpg')} style={{width: '100%', height: '100%'}}>
+            <SafeAreaView style={styles.androidSafeArea}>
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <Text style={styles.title}>Parent Profile</Text>
                     <TouchableOpacity style={{ height: 100, width: 100, alignItems: 'center', justifyContent: 'center' }} onPress={this._pickImage}>
                         <Image source={{ uri: avatarURL }} style={{ ...StyleSheet.absoluteFillObject, flex: 1, zIndex: -1 }} />
                     </TouchableOpacity>
@@ -141,6 +148,8 @@ class ParentProfile extends React.Component<any, any> {
 
                 </ScrollView>
             </KeyboardAvoidingView>
+            </SafeAreaView>
+            </ImageBackground>
         )
     }
 
@@ -174,24 +183,19 @@ export default connect(mapProps, mapDispatch)(ParentProfile)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'rgb(234, 195, 176)',
+        // backgroundColor: 'rgb(234, 195, 176)',
         paddingHorizontal: 16,
-        marginTop: 24
     },
     contentContainer: {
         alignItems: `center`,
         justifyContent: `center`,
         flexGrow: 1
     },
-    title: {
-        fontSize: 33,
-        fontWeight: `bold`,
-        color: `rgb(221, 97, 97)`
-    },
+
     textInput: {
         borderRadius: 6,
         marginVertical: 4,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
     },
 
     updateButton: {
@@ -202,5 +206,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgb(221, 97, 97)',
         marginVertical: 4
+    },
+
+    androidSafeArea: {
+        flex: 1,
+        // backgroundColor: npLBlue,
+        paddingTop: Platform.OS === 'android' ? 25 : 0
     },
 })

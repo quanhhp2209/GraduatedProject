@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
     time: {
         fontWeight: 'bold',
         fontSize: 15,
-        color: '#57CAFF'
+        color: '#rgb(221, 97, 97)'
     }
 })
