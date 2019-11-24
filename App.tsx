@@ -5,6 +5,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import DashboardScreen from './src/screens/dashboard';
 import LoginScreen from './src/screens/login';
+import ForgotPasswordScreen from './src/screens/forgotPassword';
 import SettingScreen from './src/screens/setting';
 import MoreOptionsScreen from './src/screens/moreOptions';
 import KidDetailScreen from './src/screens/infodetail';
@@ -73,7 +74,7 @@ export const BottomNavigationShowcase = (props) => {
 
 
 
-const AuthStack = createStackNavigator({ Login: LoginScreen }, { headerMode: 'none' });
+const AuthStack = createStackNavigator({ Login: LoginScreen, ForgotPassword: ForgotPasswordScreen }, { headerMode: 'none' });
 const DashboardStack = createStackNavigator(
   {
     Dashboard: { screen: DashboardScreen },
