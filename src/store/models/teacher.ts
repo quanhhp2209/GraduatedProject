@@ -1,20 +1,14 @@
 import firebase from "firebase"
 import { showError, showSuccess } from "../../core"
-import { navigationService } from "../../services"
+import _ from "lodash"
+
 const initialValue = {
-    fullname: '',
-    nickname: '',
-    dob: '',
-    studentId: '',
-    gender: '',
-    class: '',
-    school: '',
-    teacherIDs: [],
+    all: [],
 
     isBusy: false
 }
 
-export const kidProfile = {
+export const teacher = {
     state: { ...initialValue }, // initial state
     reducers: {
         // handle state changes with pure functions
@@ -24,21 +18,23 @@ export const kidProfile = {
                 isBusy: payload
             }
         },
-        setKidProfile(state, payload) {
+        setTeacherContacts(state, payload) {
             return {
                 ...state,
-                ...payload
+                all: payload
             }
         },
     },
     effects: dispatch => ({
         // handle state changes with impure functions.
         // use async/await for async actions
-        async getKidInfo(payload, rootState) {
+        async getTeacherContacts(payload, rootState) {
             try {
                 this.setIsBusy(true)
-                const kidSnapshot = await firebase.firestore().collection('Kids').doc(rootState.userProfile.kidID).get();
-                this.setKidProfile({ ...kidSnapshot.data(), id: kidSnapshot.id })
+                const teacherSnapshots = await firebase.firestore().collection('Teachers').get();
+                const teacherIds = rootState.kidProfile.teacherIDs
+                const teacherContacts = teacherSnapshots.docs.map(doc => ({...doc.data(), id: doc.id})).filter(t => _.includes(teacherIds, t.id))
+                this.setTeacherContacts(teacherContacts)
             } catch (e) {
                 showError(e.message)
             } finally {

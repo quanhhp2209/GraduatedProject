@@ -1,58 +1,65 @@
 import React from 'react';
-import { DatePickerAndroid, StyleSheet, Text, View, Button, TouchableOpacity, Image, SafeAreaView, FlatList, ImageBackground } from 'react-native';
+import { DatePickerAndroid, StyleSheet, Text, View, Button, TouchableOpacity, Image, SafeAreaView, FlatList, ImageBackground, Linking } from 'react-native';
 import Constants from 'expo-constants';
+import { Icon } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { IRootState } from '../../store';
 
-
-
-const teacher = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'Ms. Nguyen Thu Thao',
-        email: 'thao@gmail.com',
-
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Ms. Tran Bao Ngoc',
-        email: 'ngoc@gmail.com',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Ms. Pham Huong Chi',
-        email: 'chi@gmail.com',
-    },
-]
-function Item({ title, email, }) {
+function Item({ item }: any) {
+    const onCall = () => {
+        Linking.openURL(`tel:${item.phone}`)
+    }
     return (
         <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.email}>{email}</Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>{item.name}</Text>
+                <Text style={styles.email}>{item.email}</Text>
+                <Text style={styles.email}>{item.phone}</Text>
+            </View>
+            <TouchableOpacity onPress={onCall} style={styles.phoneContainer}>
+                <Icon name="phone-call-outline" width={32} height={32} fill='#000' />
+            </TouchableOpacity>
         </View>
     );
 }
-export default class TeacherContacts extends React.Component<any, any> {
+
+class TeacherContacts extends React.Component<any, any> {
     constructor(props) {
         super(props);
     }
 
     static navigationOptions = {
         title: 'Teacher Contacts',
-      };
+    };
+
+    componentDidMount() {
+        this.props.getTeacherContacts()
+    }
 
     render() {
         return (
-            <ImageBackground source={require('../../../assets/background4.jpg')} style={{width: '100%', height: '100%'}}>
-            <SafeAreaView style={styles.container}>
-                <FlatList 
-                    data={teacher}
-                    renderItem={({ item }) => <Item title={item.title} email={item.email} />}
-                    keyExtractor={item => item.id}
-                />
-            </SafeAreaView>
+            <ImageBackground source={require('../../../assets/background4.jpg')} style={{ width: '100%', height: '100%' }}>
+                <SafeAreaView style={styles.container}>
+                    <FlatList
+                        data={this.props.teacher.all}
+                        renderItem={({ item }) => <Item item={item} />}
+                    />
+                </SafeAreaView>
             </ImageBackground>
         );
     }
 }
+
+const mapProps = ({ teacher }: IRootState) => ({
+    teacher
+})
+
+const mapDispatch: any = ({ teacher: { getTeacherContacts } }) => ({
+    getTeacherContacts: () => getTeacherContacts(),
+})
+
+export default connect(mapProps, mapDispatch)(TeacherContacts)
+
 
 const styles = StyleSheet.create({
     container: {
@@ -64,7 +71,8 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
-        borderRadius: 6
+        borderRadius: 6,
+        flexDirection: 'row'
     },
     title: {
         fontSize: 20,
@@ -72,5 +80,15 @@ const styles = StyleSheet.create({
 
     email: {
         fontSize: 15,
+    },
+    phoneIcon: {
+        fontSize: 20,
+        color: '#000'
+    },
+    titleContainer: {
+        flex: 1
+    },
+    phoneContainer: {
+        alignItems: 'center'
     }
 })

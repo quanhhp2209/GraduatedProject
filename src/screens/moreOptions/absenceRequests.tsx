@@ -1,13 +1,30 @@
-import React from 'react';
-import { DatePickerAndroid, StyleSheet, Text, View, Button, TouchableOpacity, ImageBackground } from 'react-native';
-import { Input } from 'react-native-ui-kitten';
+import firebase from 'firebase';
 import moment from 'moment';
-export default class AbsenceRequests extends React.Component<any, any> {
-  
+import React from 'react';
+import { DatePickerAndroid, FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Input } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { showSuccess } from '../../core';
+import { IRootState } from '../../store';
+
+function Item({ item }: any) {
+    return (
+        <View style={styles.item}>
+            <View style={styles.titleContainer}>
+                <Text style={styles.content}>{item.content}</Text>
+                <Text style={styles.date}>{item.timestamp}</Text>
+                <Text style={styles.confirm}>Confirmed</Text>
+                <Text style={styles.byTeacher}>By Nguyen Thu Thao</Text>
+            </View>
+        </View>
+    );
+}
+class AbsenceRequests extends React.Component<any, any> {
+
     static navigationOptions = {
         title: 'Absence Requests',
-      };
-    
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +34,7 @@ export default class AbsenceRequests extends React.Component<any, any> {
     }
 
     onContentChange = (content) => {
-        this.setState = ({ content } as any);
+        this.setState({ content } as any);
     }
 
     onPickDate = async () => {
@@ -39,34 +56,63 @@ export default class AbsenceRequests extends React.Component<any, any> {
         }
     }
 
+
+    submitRequests = async () => {
+        await firebase.firestore().collection('AbsenceRequests').add({
+            timestamp: moment(this.state.date).startOf().toISOString(),
+            content: this.state.content,
+            kidID: this.props.kidProfile.id
+        })
+        showSuccess('Submitted request successfully!')
+        this.setState({ content: '' })
+    }
+
+    componentDidMount() {
+        this.props.getAbsenceRequests()
+    }
+
     render() {
         return (
-            <ImageBackground source={require('../../../assets/background4.jpg')} style={{width: '100%', height: '100%'}}>
-            <View style={styles.container}>
-                <Text style={{textAlign: 'left'}}>Pick a date</Text>
-                <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
-                    <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
-                </TouchableOpacity>
-                <Input
-                    label='Reason'
-                    size='large'
-                    style={styles.textInput}
-                    status='danger'
-                    returnKeyType='done'
-                    value={this.state.fullname}
-                    onChangeText={this.onContentChange}
-                    labelStyle={{ color: '#000' }}
-                    textStyle={{ color: '#000' }}
-                    multiline
-                />
-                <TouchableOpacity style={styles.submitButton} >
-                    <Text>Submit</Text>
-                </TouchableOpacity>
-            </View>
+            <ImageBackground source={require('../../../assets/background4.jpg')} style={{ width: '100%', height: '100%' }}>
+                <View style={styles.container}>
+                    <Text style={{ textAlign: 'left' }}>Please select a date</Text>
+                    <TouchableOpacity style={styles.dateholder} onPress={this.onPickDate}>
+                        <Text>{moment(this.state.date).format('DD/MM/YYYY')}</Text>
+                    </TouchableOpacity>
+                    <Input
+                        label='Reason'
+                        size='large'
+                        style={styles.textInput}
+                        status='danger'
+                        returnKeyType='done'
+                        value={this.state.content}
+                        onChangeText={this.onContentChange}
+                        labelStyle={{ color: '#000' }}
+                        textStyle={{ color: '#000' }}
+                        multiline
+                    />
+                    <TouchableOpacity style={styles.submitButton} onPress={this.submitRequests}>
+                        <Text>Submit</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <FlatList
+                        data={this.props.absenceRequests.all}
+                        renderItem={({ item }) => <Item item={item} />} />
+                </View>
             </ImageBackground>
         );
     }
 }
+
+const mapProps = ({ kidProfile }: IRootState) => ({
+    kidProfile
+})
+const mapDispatch: any = ({ absenceRequests: { getAbsenceRequests } }) => ({
+    getAbsenceRequests: () => getAbsenceRequests(),
+})
+export default connect(mapProps, mapDispatch)(AbsenceRequests)
 
 const styles = StyleSheet.create({
     container: {

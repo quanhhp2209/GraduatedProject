@@ -54,6 +54,7 @@ class Login extends React.PureComponent<any> {
                         value={this.state.email}
                         onChangeText={this.onEmailChange}
                         textStyle={{color: 'black'}}
+                        autoCapitalize={'none'}
                     />
 
                     <Input placeholder="Enter your password"
