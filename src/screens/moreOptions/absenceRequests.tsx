@@ -18,7 +18,7 @@ import { IRootState } from '../../store';
 //             </View>
 //         </View>
 //     );
-}
+// }
 class AbsenceRequests extends React.Component<any, any> {
 
     static navigationOptions = {
