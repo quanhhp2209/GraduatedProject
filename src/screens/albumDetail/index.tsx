@@ -1,16 +1,36 @@
 import React from 'react';
-import { View, Image, Dimensions, StyleSheet, Text } from 'react-native';
-import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import ImageView from 'react-native-image-view';
 import { connect } from 'react-redux';
-
 
 class AlbumDetail extends React.PureComponent<any, any> {
     static navigationOptions = {
         title: 'Album Detail',
     };
 
-    renderImage = ({ item }) => {
-        return <View style={styles.imageContainer}><Image source={{ uri: item }} style={styles.image} resizeMode="cover" /></View>
+    constructor(props) {
+        super(props);
+        this.state = {
+            isVisibleShowImage: false,
+            imageIndex: 0
+        }
+    }
+
+    onShowImage = (imageIndex) => () => {
+        this.setState({ isVisibleShowImage: true, imageIndex })
+    }
+
+    onCloseShowImage = () => {
+        this.setState({ isVisibleShowImage: false, imageIndex: 0 })
+    }
+
+    renderImage = ({ item, index }) => {
+        return <TouchableWithoutFeedback onPress={this.onShowImage(index)}>
+            <View style={styles.imageContainer}>
+                <Image source={{ uri: item }} style={styles.image} resizeMode="cover" />
+            </View>
+        </TouchableWithoutFeedback>
     }
 
     render() {
@@ -22,7 +42,21 @@ class AlbumDetail extends React.PureComponent<any, any> {
                     <Text style={styles.title}>{album.title}</Text>
                     <Text>{album.content}</Text>
                 </View>
-                <FlatList data={album.images} renderItem={this.renderImage} numColumns={3} scrollEnabled={false} keyExtractor={(item, index) => `${index}-${item}`}/>
+                <FlatList data={album.images} renderItem={this.renderImage} numColumns={3} scrollEnabled={false} keyExtractor={(item, index) => `${index}-${item}`} />
+
+                <ImageView
+                    images={album.images.map((i, index) => ({ source: { uri: i }, index }))}
+                    imageIndex={this.state.imageIndex}
+                    isSwipeCloseEnabled={false}
+                    isPinchZoomEnabled={false}
+                    isVisible={this.state.isVisibleShowImage}
+                    animationType='fade'
+                    onClose={this.onCloseShowImage}
+                    renderFooter={(currentImage) => (
+                        <View style={styles.footerImage}>
+                            <Text style={styles.footerImageText}>{`${currentImage.index + 1}/${album.images.length}`}</Text>
+                        </View>)}
+                />
             </ScrollView>
         );
     }
@@ -63,5 +97,13 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingBottom: 12
+    },
+    footerImageText: {
+        color: '#fff'
+    },
+    footerImage: {
+        paddingVertical: 24,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })
