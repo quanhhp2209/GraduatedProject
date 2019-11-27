@@ -22,7 +22,7 @@ class AlbumDetail extends React.PureComponent<any, any> {
                     <Text style={styles.title}>{album.title}</Text>
                     <Text>{album.content}</Text>
                 </View>
-                <FlatList data={album.images} renderItem={this.renderImage} numColumns={3} scrollEnabled={false} />
+                <FlatList data={album.images} renderItem={this.renderImage} numColumns={3} scrollEnabled={false} keyExtractor={(item, index) => `${index}-${item}`}/>
             </ScrollView>
         );
     }

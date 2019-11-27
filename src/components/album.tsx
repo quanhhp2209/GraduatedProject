@@ -4,7 +4,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 
-class AlbumBase extends React.PureComponent<any> {
+class AlbumBase extends React.PureComponent<any, any> {
+
+    constructor(props) {
+        super(props)
+    }
 
     onDetail = () => {
         // console.log('this.props.album', this.props.album)

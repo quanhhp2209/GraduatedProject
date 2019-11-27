@@ -9,7 +9,7 @@ export class Wrapper extends React.PureComponent<any> {
             <Layout style={[styles.container, this.props.containerStyle]} level="4">
                 <LoadingOverlay isVisible={this.props.isLoading} />
 
-                <SafeAreaView>
+                <SafeAreaView style={[styles.content, this.props.contentStyle]}>
                     {this.props.children}
                 </SafeAreaView>
             </Layout>
@@ -23,5 +23,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         flex: 1
     },
+    content: {
+        flex: 1
+    }
 
 })

@@ -5,9 +5,10 @@ import moment from 'moment'
 import { DateBar } from './components';
 import { ScrollView } from 'react-native-gesture-handler';
 import SafeAreaView from 'react-native-safe-area-view';
-import { LearnActivity, NutritionActivity, NapActivity } from '../../components';
+import { LearnActivity, NutritionActivity, NapActivity, Wrapper } from '../../components';
 import { connect } from 'react-redux';
 import { IRootState } from '../../store';
+import firebase from 'firebase';
 
 
 class KidDetail extends React.PureComponent<any, any> {
@@ -16,29 +17,38 @@ class KidDetail extends React.PureComponent<any, any> {
     title: 'Kid Activities',
   };
 
-
   constructor(props) {
     super(props);
     const today = moment().startOf('day').toISOString()
     this.state = {
       selectedDate: today,
-      activitiesByTimestamp: []
+      activitiesByTimestamp: [],
+      isBusy: true
     }
   }
 
   componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
+    InteractionManager.runAfterInteractions(async () => {
       const today = moment().startOf('day').toISOString()
+      const absenceRequestSnapshot = await firebase.firestore().collection('AbsenceRequests').where('timestamp', '==', today).where('kidID', '==', this.props.kidProfile.id).get()
       this.setState({
-        activitiesByTimestamp: this.props.activities.filter(a => a.timestamp === today)
+        activitiesByTimestamp: absenceRequestSnapshot.empty ? this.props.activities.filter(a => a.timestamp === today) : [],
+        isBusy: false,
+        isAbsent: !absenceRequestSnapshot.empty,
       })
     })
   }
 
-  onChangeDate = (selectedDate: number) => {
+  onChangeDate = async (selectedDate: number) => {
     this.setState({
       selectedDate,
-      activitiesByTimestamp: this.props.activities.filter(a => a.timestamp === selectedDate)
+      isBusy: true
+    })
+    const absenceRequestSnapshot = await firebase.firestore().collection('AbsenceRequests').where('timestamp', '==', selectedDate).where('kidID', '==', this.props.kidProfile.id).get()
+    this.setState({
+      activitiesByTimestamp: absenceRequestSnapshot.empty ? this.props.activities.filter(a => a.timestamp === selectedDate) : [],
+      isAbsent: !absenceRequestSnapshot.empty,
+      isBusy: false
     })
   }
 
@@ -69,28 +79,26 @@ class KidDetail extends React.PureComponent<any, any> {
 
   render() {
     return (
-      <Layout style={styles.container} level="3">
-        <SafeAreaView>
-          <ScrollView>
-            <View style={styles.dateBarContainer}>
-              <DateBar selectedDate={this.state.selectedDate} onChangeDate={this.onChangeDate} />
-            </View>
-            <View style={styles.contentContainer}>
-              <FlatList
-                data={this.state.activitiesByTimestamp}
-                renderItem={this.renderItem}
-                keyExtractor={i => i.id}
-                ListEmptyComponent={<Text style={styles.emptyText}>There are no activites recorded</Text>} />
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      </Layout>
+      <Wrapper isLoading={this.state.isBusy} containerStyle={styles.container}>
+        <View style={styles.dateBarContainer}>
+          <DateBar selectedDate={this.state.selectedDate} onChangeDate={this.onChangeDate} />
+        </View>
+        <View style={styles.contentContainer}>
+          <FlatList
+            data={this.state.activitiesByTimestamp}
+            renderItem={this.renderItem}
+            keyExtractor={i => i.id}
+            ListEmptyComponent={<Text style={styles.emptyText}>{this.state.isAbsent ? 'Today is the absent day' : 'There are no activites recorded'}</Text>} />
+        </View>
+      </Wrapper>
+
     );
   }
 }
 
-const mapProps = ({ activity }: IRootState) => ({
-  activities: activity.all
+const mapProps = ({ activity, kidProfile }: IRootState) => ({
+  activities: activity.all,
+  kidProfile
 })
 
 export default connect(mapProps)(KidDetail)
@@ -98,9 +106,7 @@ export default connect(mapProps)(KidDetail)
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 0
   },
   dateBarContainer: {
     backgroundColor: '#fff',

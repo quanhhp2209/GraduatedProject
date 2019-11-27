@@ -20,6 +20,7 @@ import TeacherContactsScreen from './src/screens/moreOptions/teacherContacts';
 import KidProfileScreen from './src/screens/profile/kidInfo';
 import ParentProfileScreen from './src/screens/profile/parentInfo';
 import SettingScreen from './src/screens/setting';
+import KidAlbumScreen from './src/screens/moreOptions/kidAlbum';
 import { navigationService } from './src/services';
 import store from './src/store';
 
@@ -75,9 +76,9 @@ export const BottomNavigationShowcase = (props) => {
 }
 
 const AuthStack = createStackNavigator(
-  { 
-    Login: LoginScreen, 
-    ForgotPassword: ForgotPasswordScreen 
+  {
+    Login: LoginScreen,
+    ForgotPassword: ForgotPasswordScreen
   }, { headerMode: 'none' });
 const DashboardStack = createStackNavigator(
   {
@@ -88,7 +89,9 @@ const KidDetailStack = createStackNavigator({ KidDetail: KidDetailScreen });
 const MoreOptionsStack = createStackNavigator({
   MoreOptions: MoreOptionsScreen,
   AbsenceRequests: AbsenceRequestsScreen,
-  TeacherContacts: TeacherContactsScreen
+  TeacherContacts: TeacherContactsScreen,
+  KidAlbum: KidAlbumScreen,
+  AlbumDetail: AlbumDetailSreen,
 });
 const SettingStack = createStackNavigator({
   Setting: SettingScreen,

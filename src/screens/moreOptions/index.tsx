@@ -19,11 +19,15 @@ export default class MoreOptions extends React.Component<any> {
     this.props.navigation.navigate('TeacherContacts')
   }
 
+  gotoAlbums = () => {
+    this.props.navigation.navigate('KidAlbum')
+  }
+
   render() {
     return (
       <ImageBackground source={require('../../../assets/background2.jpg')} style={{width: '100%', height: '100%'}}>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.moreButton} >
+        <TouchableOpacity style={styles.moreButton} onPress={this.gotoAlbums}>
           <Text>Kid's Albums</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.moreButton} onPress = {this.gotoAbsenceRequests}>

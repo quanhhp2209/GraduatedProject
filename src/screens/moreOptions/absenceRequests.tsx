@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import moment from 'moment';
 import React from 'react';
-import { DatePickerAndroid, FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { DatePickerAndroid, FlatList, ImageBackground, StyleSheet, Text, TouchableOpacity, View, Keyboard } from 'react-native';
 import { Input } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { showSuccess } from '../../core';
@@ -18,7 +18,7 @@ import { IRootState } from '../../store';
 //             </View>
 //         </View>
 //     );
-}
+// }
 class AbsenceRequests extends React.Component<any, any> {
 
     static navigationOptions = {
@@ -58,8 +58,9 @@ class AbsenceRequests extends React.Component<any, any> {
 
 
     submitRequests = async () => {
+        Keyboard.dismiss()
         await firebase.firestore().collection('AbsenceRequests').add({
-            timestamp: moment(this.state.date).startOf().toISOString(),
+            timestamp: moment(this.state.date).startOf('day').toISOString(),
             content: this.state.content,
             kidID: this.props.kidProfile.id
         })

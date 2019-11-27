@@ -4,7 +4,8 @@ import { navigationService } from "../../services"
 const initialValue = {
     all: [],
     selectedAlbum: {},
-    isBusy: false
+    isBusy: false,
+    albums: []
 }
 
 export const activity = {
@@ -29,6 +30,12 @@ export const activity = {
                 selectedAlbum: payload
             }
         },
+        setAlbums(state, payload) {
+            return {
+                ...state,
+                albums: payload
+            }
+        }
     },
     effects: dispatch => ({
         async getActivites(payload, rootState) {
@@ -48,6 +55,7 @@ export const activity = {
                 const activites = [...learnActivities, ...napActivities, ...nutritionActivities, ...albums]
 
                 this.setActivities(activites)
+                this.setAlbums(albums)
             } catch (e) {
                 showError(e.message)
             } finally {
