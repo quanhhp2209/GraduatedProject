@@ -1,7 +1,6 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image, Dimensions } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { navigationService } from '../services';
 import { withNavigation } from 'react-navigation';
 import { connect } from 'react-redux';
 

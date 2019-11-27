@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground } from 'react-native';
-import { Avatar, Layout, Icon, Menu } from 'react-native-ui-kitten'
-import Modal from 'react-native-modal';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 export default class MoreOptions extends React.Component<any> {
 
   static navigationOptions = {

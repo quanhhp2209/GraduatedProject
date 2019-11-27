@@ -1,13 +1,12 @@
+import firebase from 'firebase';
 import React from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
-import { Icon, Input } from 'react-native-ui-kitten';
+import { Keyboard, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Input } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { LoadingOverlay } from '../../components';
-import { IRootState } from '../../store';
-import firebase from 'firebase';
 import { showError, showSuccess } from '../../core';
-import SafeAreaView from 'react-native-safe-area-view';
-// import { Container, Header, Content, Form, Item, Input, Label } from 'native-base';
+import { IRootState } from '../../store';
+
 class Login extends React.PureComponent<any> {
     state = {
         email: '',
@@ -21,7 +20,7 @@ class Login extends React.PureComponent<any> {
         try {
             Keyboard.dismiss();
             await firebase.auth().sendPasswordResetEmail(this.state.email)
-            showSuccess('Send email successfully')
+            showSuccess('Sent email successfully!')
         } catch (e) {
             showError(e.message)
         }
@@ -42,7 +41,7 @@ class Login extends React.PureComponent<any> {
                         onChangeText={this.onEmailChange}
                         textStyle={{ color: 'black' }}
                     />
-                    <TouchableOpacity style={styles.loginButton} onPress={this.onForgotPassword}>
+                    <TouchableOpacity style={styles.sendButton} onPress={this.onForgotPassword}>
                         <Text>SEND EMAIL</Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView >
@@ -70,11 +69,10 @@ const styles = StyleSheet.create({
         fontSize: 33,
         fontWeight: `bold`,
         color: `rgb(221, 97, 97)`,
-        paddingBottom: 18,
-        textAlign: 'left'
+        marginVertical: 4
     },
-    loginButton: {
-        width: 329,
+    sendButton: {
+        width: 344,
         height: 45,
         borderRadius: 6,
         justifyContent: 'center',
@@ -83,20 +81,9 @@ const styles = StyleSheet.create({
         marginVertical: 4
     },
 
-    resetButton: {
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        width: '100%',
-        paddingRight: 1,
-        paddingTop: 4,
-        marginVertical: 4
-    },
-    resetPasswordText: {
-        color: 'rgb(221, 97, 97)'
-    },
     textInput: {
         borderRadius: 6,
         marginVertical: 4,
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        backgroundColor: '#EDEDED',
     }
 });

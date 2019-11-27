@@ -38,7 +38,6 @@ export const userProfile = {
                 this.setUserProfile({ ...userSnapshot.data(), id: userSnapshot.id })
                 dispatch.kidProfile.getKidInfo()
                 navigationService.navigate('Dashboard')
-
                 dispatch.activity.getActivites()
             } catch (e) {
                 showError(e.message)
@@ -52,7 +51,7 @@ export const userProfile = {
                 await firebase.firestore().collection('Users').doc(rootState.userProfile.id).update({
                     ...payload
                 });
-                showSuccess('Update successfully')
+                showSuccess('Updated profile successfully!')
             } catch (e) {
                 showError(e.message)
             } finally {

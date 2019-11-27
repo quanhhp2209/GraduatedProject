@@ -52,7 +52,7 @@ export const kidProfile = {
                 await firebase.firestore().collection('Kids').doc(rootState.kidProfile.id).update({
                     ...payload
                 });
-                showSuccess('Update successfully')
+                showSuccess('Updated profile successfully!')
             } catch (e) {
                 showError(e.message)
             } finally {

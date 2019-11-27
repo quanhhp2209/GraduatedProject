@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 class AlbumDetail extends React.PureComponent<any, any> {
     static navigationOptions = {
-        title: 'Detail',
+        title: 'Album Detail',
     };
 
     renderImage = ({ item }) => {

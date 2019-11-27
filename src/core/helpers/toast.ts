@@ -15,7 +15,7 @@ export const showError = (e: string) => {
 export const showSuccess = (e: string) => {
     Toast.show(e, {
         duration: Toast.durations.SHORT,
-        position: Toast.positions.TOP,
+        position: Toast.positions.BOTTOM,
         shadow: false,
         animation: true,
         hideOnPress: true,

@@ -4,7 +4,7 @@ import { Icon, Input } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { LoadingOverlay } from '../../components';
 import { IRootState } from '../../store';
-// import { Container, Header, Content, Form, Item, Input, Label } from 'native-base';
+
 class Login extends React.PureComponent<any> {
     state = {
         email: '',
@@ -97,7 +97,6 @@ const mapDispatch: any = ({ userProfile: { login } }) => ({
 
 export default connect(mapProps, mapDispatch)(Login)
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
         justifyContent: `center`
     },
     loginButton: {
-        width: 329,
+        width: 344,
         height: 45,
         borderRadius: 6,
         justifyContent: 'center',

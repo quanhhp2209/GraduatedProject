@@ -7,17 +7,17 @@ import { connect } from 'react-redux';
 import { showSuccess } from '../../core';
 import { IRootState } from '../../store';
 
-function Item({ item }: any) {
-    return (
-        <View style={styles.item}>
-            <View style={styles.titleContainer}>
-                <Text style={styles.content}>{item.content}</Text>
-                <Text style={styles.date}>{item.timestamp}</Text>
-                <Text style={styles.confirm}>Confirmed</Text>
-                <Text style={styles.byTeacher}>By Nguyen Thu Thao</Text>
-            </View>
-        </View>
-    );
+// function Item({ item }: any) {
+//     return (
+//         <View style={styles.item}>
+//             <View style={styles.titleContainer}>
+//                 <Text style={styles.content}>{item.content}</Text>
+//                 <Text style={styles.date}>{item.timestamp}</Text>
+//                 <Text style={styles.confirm}>Confirmed</Text>
+//                 <Text style={styles.byTeacher}>By Nguyen Thu Thao</Text>
+//             </View>
+//         </View>
+//     );
 }
 class AbsenceRequests extends React.Component<any, any> {
 
@@ -96,11 +96,11 @@ class AbsenceRequests extends React.Component<any, any> {
                     </TouchableOpacity>
                 </View>
 
-                <View>
+                {/* <View>
                     <FlatList
                         data={this.props.absenceRequests.all}
                         renderItem={({ item }) => <Item item={item} />} />
-                </View>
+                </View> */}
             </ImageBackground>
         );
     }

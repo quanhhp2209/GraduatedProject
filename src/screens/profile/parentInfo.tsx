@@ -1,12 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image, ImageBackground, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { Avatar, Layout, Icon, Menu, Input } from 'react-native-ui-kitten';
-import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
+import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import { IRootState } from '../../store';
-import { connect } from 'react-redux';
+import React from 'react';
+import { Image, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
+import { Input } from 'react-native-ui-kitten';
+import { connect } from 'react-redux';
+import { IRootState } from '../../store';
 class ParentProfile extends React.Component<any, any> {
     constructor(props) {
         super(props);

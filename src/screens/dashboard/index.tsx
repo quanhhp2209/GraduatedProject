@@ -1,12 +1,11 @@
-import React from 'react';
-import { StyleSheet, Text, View, SectionList, SafeAreaView } from 'react-native';
-import { Layout } from 'react-native-ui-kitten';
-import { IRootState } from '../../store';
-import { connect } from 'react-redux';
-import { createSelector } from 'reselect'
 import _ from 'lodash';
-import { NutritionActivity, NapActivity, LearnActivity, Wrapper, LoadingOverlay, Album } from '../../components';
 import moment from 'moment';
+import React from 'react';
+import { SectionList, StyleSheet, Text, View } from 'react-native';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+import { Album, LearnActivity, NapActivity, NutritionActivity, Wrapper } from '../../components';
+import { IRootState } from '../../store';
 
 
 class Dashboard extends React.PureComponent<any> {
@@ -81,7 +80,6 @@ const mapProps = (state: IRootState) => ({
 })
 
 export default connect(mapProps)(Dashboard)
-
 
 const styles = StyleSheet.create({
   activityContainer: {

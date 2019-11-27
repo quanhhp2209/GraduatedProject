@@ -1,28 +1,27 @@
+import { light as lightTheme, mapping } from '@eva-design/eva';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { ApplicationProvider, BottomNavigation, BottomNavigationTab, Icon, IconRegistry } from 'react-native-ui-kitten';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Provider } from 'react-redux';
+import AlbumDetailSreen from './src/screens/albumDetail';
 import DashboardScreen from './src/screens/dashboard';
-import LoginScreen from './src/screens/login';
 import ForgotPasswordScreen from './src/screens/forgotPassword';
-import SettingScreen from './src/screens/setting';
-import MoreOptionsScreen from './src/screens/moreOptions';
 import KidDetailScreen from './src/screens/infodetail';
-import ParentProfileScreen from './src/screens/profile/parentInfo';
-import KidProfileScreen from './src/screens/profile/kidInfo';
+import LoginScreen from './src/screens/login';
+import MoreOptionsScreen from './src/screens/moreOptions';
 import AbsenceRequestsScreen from './src/screens/moreOptions/absenceRequests';
 import TeacherContactsScreen from './src/screens/moreOptions/teacherContacts';
-import { mapping, light as lightTheme } from '@eva-design/eva';
-import * as firebase from 'firebase';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import { Provider, connect } from 'react-redux'
-import store from './src/store';
-import 'firebase/firestore'
+import KidProfileScreen from './src/screens/profile/kidInfo';
+import ParentProfileScreen from './src/screens/profile/parentInfo';
+import SettingScreen from './src/screens/setting';
 import { navigationService } from './src/services';
-import AlbumDetailSreen from './src/screens/albumDetail';
-import AbsenceRequests from './src/screens/moreOptions/absenceRequests';
+import store from './src/store';
 
 
 const firebaseConfig = {
@@ -75,9 +74,11 @@ export const BottomNavigationShowcase = (props) => {
   );
 }
 
-
-
-const AuthStack = createStackNavigator({ Login: LoginScreen, ForgotPassword: ForgotPasswordScreen }, { headerMode: 'none' });
+const AuthStack = createStackNavigator(
+  { 
+    Login: LoginScreen, 
+    ForgotPassword: ForgotPasswordScreen 
+  }, { headerMode: 'none' });
 const DashboardStack = createStackNavigator(
   {
     Dashboard: { screen: DashboardScreen },

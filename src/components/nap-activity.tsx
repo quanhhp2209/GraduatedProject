@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-    ActivityIndicator, StyleSheet, View,
-    Text
-} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export class NapActivity extends React.PureComponent<any> {
     render() {

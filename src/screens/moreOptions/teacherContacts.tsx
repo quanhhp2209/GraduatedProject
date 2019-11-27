@@ -1,6 +1,6 @@
-import React from 'react';
-import { DatePickerAndroid, StyleSheet, Text, View, Button, TouchableOpacity, Image, SafeAreaView, FlatList, ImageBackground, Linking } from 'react-native';
 import Constants from 'expo-constants';
+import React from 'react';
+import { FlatList, ImageBackground, Linking, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
 import { IRootState } from '../../store';
@@ -17,7 +17,7 @@ function Item({ item }: any) {
                 <Text style={styles.email}>{item.phone}</Text>
             </View>
             <TouchableOpacity onPress={onCall} style={styles.phoneContainer}>
-                <Icon name="phone-call-outline" width={32} height={32} fill='#000' />
+                <Icon name="phone-call-outline" width={32} height={32} fill='rgb(221, 97, 97)' />
             </TouchableOpacity>
         </View>
     );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight,
     },
     item: {
-        backgroundColor: '#fff',
+        backgroundColor: 'rgb(234, 195, 176)',
         padding: 20,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -81,10 +81,7 @@ const styles = StyleSheet.create({
     email: {
         fontSize: 15,
     },
-    phoneIcon: {
-        fontSize: 20,
-        color: '#000'
-    },
+
     titleContainer: {
         flex: 1
     },
