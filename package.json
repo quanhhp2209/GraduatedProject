@@ -17,7 +17,7 @@
     "expo-image-picker": "~7.0.0",
     "firebase": "^7.1.0",
     "firebase-admin": "^8.7.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "native-base": "^2.13.8",
     "react": "16.8.3",
